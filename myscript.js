@@ -2,14 +2,15 @@
 function rqpcr() {
 	console.log('this',this);
 	str = this.response;
-	console.log(str);
+	//console.log(str);
 	var re = /storyboard_spec\":\"([^"]*)"/;
 	res = str.match(re)[1];
 	console.log(res);
 	t1 = res.indexOf('|');
-	t2 = res.indexOf('|', t1);
-	t3 = res.indexOf('|', t2);
+	t2 = res.indexOf('|', t1 + 1);
+	t3 = res.indexOf('|', t2 + 1);
 	fine_res = res.slice(t2 + 1, t3);
+	console.log(t2,t3,fine_res);
 	obja = {};
 	obja.w = 160;
 	temp = fine_res.indexOf('#');
