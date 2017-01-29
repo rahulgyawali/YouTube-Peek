@@ -15,9 +15,6 @@
       "run_at": "document_end"
     }
   ],
-  "background": {
-    "scripts": ["bg.js"]
-  },
   "permissions": [
     "tabs", 
     "http://www.youtube.com/*",
