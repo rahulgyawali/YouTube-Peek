@@ -10,7 +10,7 @@ function rqpcr() {
 	t2 = res.indexOf('|', t1 + 1);
 	t3 = res.indexOf('|', t2 + 1);
 	fine_res = res.slice(t2 + 1, t3);
-	console.log(t2,t3,fine_res);
+	console.log(fine_res);
 	obja = {};
 	obja.w = 160;
 	temp = fine_res.indexOf('#');
@@ -38,3 +38,12 @@ function init(v_id) {
 }
 
 init('f4Gop7-omdk');
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log(sender.tab ?
+                "from a content script:" + sender.tab.url :
+                "from the extension");
+    if (request.greeting == "hello")
+      sendResponse({farewell: "goodbye"});
+  });
