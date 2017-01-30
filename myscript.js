@@ -6,8 +6,16 @@ function set_listeners() {
 	arr = document.getElementsByClassName('thumb-link');
 	for (var i = arr.length - 1; i >= 0; i--) {
 		arr[i].addEventListener("mouseover", send_req);
-		// arr[i].addEventListener("onmouseleave", stop_anim);
 	}
+	arr = document.getElementsByClassName('related-item-dismissable');
+	for (var i = arr.length - 1; i >= 0; i--) {
+		arr[i].addEventListener("mouseleave", stop_anim);
+	}
+}
+
+function stop_anim() {
+	document.getElementById('slide_board').remove();
+	console.log('mouse leave');
 }
 
 function rqpcr() {
@@ -85,6 +93,7 @@ function init(v_id) {
 }	
 
 function send_req() {
+	console.log('mouse leave');
 	raw_id = this.getAttribute('href');
 	id = raw_id.slice(9);
 	init(id);
