@@ -111,6 +111,10 @@ function start_anim(obja) {
 		tst_elem1 = document.createElement('div');
 		tst_elem1.style.width = (obja.w).toString() + 'px';
 		tst_elem1.style.height = (obja.h).toString() + 'px';
+		tst_elem1.style.margin = '0px';
+		tst_elem1.style.position = 'absolute';
+		tst_elem1.style.overflow = 'hidden';
+
 		tst_elem = document.createElement('img');
 		tst_elem.id = 'slide_board_image';
 		tst_elem.style.zIndex = '200';
@@ -136,7 +140,7 @@ function mov_start(obja, i) {
 	no = obja.no;
 	tst_elem.style.left = '-' + ((i % s_w) * w).toString() + 'px';
 	tst_elem.style.top = '-' + (Math.floor(i / s_w) * h).toString() + 'px';
-	if(i == no - 1)
+	if(i == s_h * s_w )
 		i = 0;
-	setTimeout(function(){ mov_start(obja, i + 1);}, 1000);
+	setTimeout(function(){ mov_start(obja, i + 1);}, 500);
 }	
