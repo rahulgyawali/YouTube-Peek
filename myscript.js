@@ -4,10 +4,28 @@ set_listeners();
 
 function set_listeners() {
 	arr = document.getElementsByClassName('thumb-link');
+	console.log(arr.length)
+	if(arr.length == 0) {
+		set_listeners_home();
+		return;
+	}
 	for (var i = arr.length - 1; i >= 0; i--) {
 		arr[i].addEventListener("mouseover", send_req);
 	}
 	arr = document.getElementsByClassName('video-list-item');
+	for (var i = arr.length - 1; i >= 0; i--) {
+		arr[i].addEventListener("mouseleave", stop_anim);
+	}
+}
+
+function set_listeners_home() {
+	arr = document.getElementsByClassName('yt-lockup-thumbnail');
+	console.log(arr.length);
+	for (var i = arr.length - 1; i >= 0; i--) {
+		console.log(arr[i].childNodes[0])
+		arr[i].childNodes[0].addEventListener("mouseover", send_req);
+	}
+	arr = document.getElementsByClassName('yt-shelf-grid-item');
 	for (var i = arr.length - 1; i >= 0; i--) {
 		arr[i].addEventListener("mouseleave", stop_anim);
 	}
@@ -21,7 +39,6 @@ function stop_anim() {
 function rqpcr() {
 	console.log('this',this);
 	str = this.response;
-	//console.log(str);
 	var re = /storyboard_spec\":\"([^"]*)"/;
 	res = str.match(re)[1];
 	console.log(res);
@@ -170,7 +187,7 @@ function mov_start(obja, i) {
 	no = obja.no;
 	tst_elem.style.left = '-' + ((i % s_w) * w).toString() + 'px';
 	tst_elem.style.top = '-' + (Math.floor(i / s_w) * h).toString() + 'px';
-	// if(i == s_h * s_w )
-	// 	return;
+	if(i == no )
+		i = 0;
 	setTimeout(function(){ mov_start(obja, i + 1);}, 500);
 }	
