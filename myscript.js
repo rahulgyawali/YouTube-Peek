@@ -7,7 +7,7 @@ function set_listeners() {
 	for (var i = arr.length - 1; i >= 0; i--) {
 		arr[i].addEventListener("mouseover", send_req);
 	}
-	arr = document.getElementsByClassName('related-item-dismissable');
+	arr = document.getElementsByClassName('video-list-item');
 	for (var i = arr.length - 1; i >= 0; i--) {
 		arr[i].addEventListener("mouseleave", stop_anim);
 	}
