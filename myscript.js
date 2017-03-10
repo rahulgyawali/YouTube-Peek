@@ -37,9 +37,6 @@ function rqpcr() {
 	temp2 = fine_res.indexOf('#', temp1 + 1);
 	temp3 = fine_res.indexOf('#', temp2 + 1);
 	temp4 = fine_res.indexOf('#', temp3 + 1);
-	// console.log(fine_res.slice(temp + 1, temp1));
-	// console.log(fine_res.slice(temp1 + 1, temp2));
-	// console.log(fine_res.slice(temp2 + 1, temp3));
 	obja.h = parseInt(fine_res.slice(temp + 1, temp1));
 	obja.no = parseInt(fine_res.slice(temp1 + 1, temp2));
 	obja.strip_h = parseInt(fine_res.slice(temp2 + 1, temp3));
@@ -112,36 +109,60 @@ function send_req() {
 }
 
 function start_anim(obja) {
-	i = 0;
 	sld_brd = document.getElementById('slide_board');
 	console.log(sld_brd);
 	if (sld_brd.childNodes.length == 0) {
 		console.log(obja);
-		tst_elem1 = document.createElement('div');
-		tst_elem1.style.width = (obja.w).toString() + 'px';
-		tst_elem1.style.height = (obja.h).toString() + 'px';
-		tst_elem1.style.margin = '0px';
-		tst_elem1.style.position = 'absolute';
-		tst_elem1.style.overflow = 'hidden';
+		par_div = document.createElement('div');
+		par_div.style.width = (obja.w).toString() + 'px';
+		par_div.style.height = (obja.h).toString() + 'px';
+		par_div.style.margin = '0px';
+		par_div.style.position = 'absolute';
+		par_div.style.overflow = 'hidden';
 
-		tst_elem = document.createElement('img');
-		tst_elem.id = 'slide_board_image';
-		tst_elem.style.zIndex = '200';
-		tst_elem.style.position = 'absolute'
-		tst_elem.style.top = '0px';
-		tst_elem.style.left = '0px';
-		urll = 'https://i9.ytimg.com/sb/' + obja.v_id + '/storyboard3_L2/M' + i +'.jpg?sigh=' + obja.sigh + '0';
-		tst_elem.src = urll;
-		console.log(urll);
-		tst_elem1.appendChild(tst_elem);
-		sld_brd.appendChild(tst_elem1);
+		img_wrpr = document.createElement('div');
+		img_wrpr.id = 'slide_board_wrpr'
+		img_wrpr.style.width = (Math.ceil(obja.w * obja.strip_w)).toString() + 'px';
+		img_wrpr.style.height = (Math.ceil(obja.h * obja.no / obja.strip_w)).toString() + 'px';
+		img_wrpr.style.margin = '0px';
+		img_wrpr.style.position = 'absolute';
+		img_wrpr.style.overflow = 'hidden';
+
+		max_len = Math.ceil(obja.no / (obja.strip_w * obja.strip_h));
+		console.log(max_len)
+
+		for (var i = 0; i <= max_len; i++) {
+			tst_elem = document.createElement('img');
+			tst_elem.style.zIndex = '200';
+			tst_elem.style.position = 'relative'
+			tst_elem.style.top = '0px';
+			tst_elem.style.left = '0px';
+			urll = 'https://i9.ytimg.com/sb/' + obja.v_id + '/storyboard3_L2/M' + i +'.jpg?sigh=' + obja.sigh + '0';
+			tst_elem.src = urll;
+			console.log(urll);
+			img_wrpr.appendChild(tst_elem);		
+		}		
+
+		// tst_elem = document.createElement('img');
+		// tst_elem.id = 'slide_board_image';
+		// tst_elem.style.zIndex = '200';
+		// tst_elem.style.position = 'absolute'
+		// tst_elem.style.top = '0px';
+		// tst_elem.style.left = '0px';
+		par_div.appendChild(img_wrpr);
+		sld_brd.appendChild(par_div);
+
+		// i = 0;
+		// while(true) {
+			
 		mov_start(obja, 0);
+		// }
 	}
 }
 
 function mov_start(obja, i) {
 	console.log(obja, i);
-	tst_elem = document.getElementById('slide_board_image');
+	tst_elem = document.getElementById('slide_board_wrpr');
 	w = obja.w;
 	h = obja.h;
 	s_h = obja.strip_h;
@@ -149,7 +170,7 @@ function mov_start(obja, i) {
 	no = obja.no;
 	tst_elem.style.left = '-' + ((i % s_w) * w).toString() + 'px';
 	tst_elem.style.top = '-' + (Math.floor(i / s_w) * h).toString() + 'px';
-	if(i == s_h * s_w )
-		i = 0;
+	// if(i == s_h * s_w )
+	// 	return;
 	setTimeout(function(){ mov_start(obja, i + 1);}, 500);
 }	
