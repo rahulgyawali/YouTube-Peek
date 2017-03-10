@@ -145,7 +145,7 @@ function start_anim(obja) {
 		img_wrpr.style.position = 'absolute';
 		img_wrpr.style.overflow = 'hidden';
 
-		max_len = Math.ceil(obja.no / (obja.strip_w * obja.strip_h));
+		max_len = Math.float(obja.no / (obja.strip_w * obja.strip_h));
 		console.log(max_len)
 
 		for (var i = 0; i <= max_len; i++) {
