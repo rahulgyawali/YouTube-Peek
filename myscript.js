@@ -3,12 +3,16 @@ var intervl = 400;
 set_listeners();
 
 function set_listeners() {
+	
 	arr = document.getElementsByClassName('thumb-link');
 	console.log(arr.length)
+	
 	if(arr.length == 0) {
 		set_listeners_home();
+		
 		return;
 	}
+	
 	for (var i = arr.length - 1; i >= 0; i--) {
 		arr[i].addEventListener("mouseover", send_req);
 	}
